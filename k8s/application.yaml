@@ -1,0 +1,21 @@
+# k8s/application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-python-app
+  namespace: argocd
+spec:
+  project: argopython
+  source:
+    repoURL: 'https://github.com/hroliveira/Argo-Python'
+    targetRevision: HEAD
+    path: k8s
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argopython
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

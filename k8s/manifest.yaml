@@ -1,0 +1,126 @@
+# Namespace Configuration
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argopython
+  annotations:
+    cattle.io/status: >-
+      {"Conditions":[{"Type":"ResourceQuotaInit","Status":"True","Message":"","LastUpdateTime":"2024-07-21T14:26:47Z"},{"Type":"InitialRolesPopulated","Status":"True","Message":"","LastUpdateTime":"2024-07-21T14:26:48Z"}]}
+    field.cattle.io/containerDefaultResourceLimit: '{}'
+    field.cattle.io/projectId: c-m-qf49gw8f:p-w9xdb
+    lifecycle.cattle.io/create.namespace-auth: 'true'
+  labels:
+    field.cattle.io/projectId: p-w9xdb
+    kubernetes.io/metadata.name: argopython
+
+# ArgoCD Project Configuration
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: argopython
+  namespace: argocd
+spec:
+  description: Projeto para aplicações de teste no Argo CD
+  sourceRepos:
+    - 'https://github.com/hroliveira/Argo-Python'
+  destinations:
+    - namespace: argopython
+      server: 'https://kubernetes.default.svc'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+
+# Deployment Configuration
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argo-python-deployment
+  labels:
+    app: argo-python
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: argo-python
+  template:
+    metadata:
+      labels:
+        app: argo-python
+    spec:
+      containers:
+      - name: argo-python
+        image: hroliveira/argo-python:latest
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+
+# Service Configuration
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: argo-python-service
+spec:
+  selector:
+    app: argo-python
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: ClusterIP
+
+# Ingress Configuration
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argo-python-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: argo-python.rancher.hro.dev.br
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: argo-python-service
+            port:
+              number: 80
+
+# ArgoCD Application Configuration
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-python-app
+  namespace: argocd
+spec:
+  project: argopython
+  source:
+    repoURL: 'https://github.com/hroliveira/Argo-Python'
+    targetRevision: HEAD
+    path: k8s
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argopython
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
