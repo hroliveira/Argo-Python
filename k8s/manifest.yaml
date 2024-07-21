@@ -113,7 +113,7 @@ metadata:
   name: argo-python-app
   namespace: argocd  # O namespace do ArgoCD onde o Application será criado
 spec:
-  project: argopython
+  project: argo-python
   source:
     repoURL: 'https://github.com/hroliveira/Argo-Python'
     targetRevision: HEAD
