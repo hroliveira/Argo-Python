@@ -19,14 +19,14 @@ metadata:
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: argopython
-  namespace: argopython
+  name: argo-python
+  namespace: argocd
 spec:
   description: Projeto para aplicações de teste no Argo CD
   sourceRepos:
     - 'https://github.com/hroliveira/Argo-Python'
   destinations:
-    - namespace: argo_python
+    - namespace: argopython
       server: 'https://kubernetes.default.svc'
   clusterResourceWhitelist:
     - group: '*'
@@ -79,7 +79,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 5000
-  type: ClusterIP
+  type: ClusterIP  # Use LoadBalancer if you need an external IP
 
 # Ingress Configuration
 ---
