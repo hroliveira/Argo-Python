@@ -5,7 +5,7 @@ metadata:
   name: argo-python-app
   namespace: argocd
 spec:
-  project: argopython
+  project: argo-python
   source:
     repoURL: 'https://github.com/hroliveira/Argo-Python'
     targetRevision: HEAD
