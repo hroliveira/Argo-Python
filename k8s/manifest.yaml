@@ -44,7 +44,7 @@ metadata:
   labels:
     app: argo-python
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: argo-python
