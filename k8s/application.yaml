@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: argo-python-app
-  namespace: argocd
+  namespace: argopython
 spec:
   project: argo-python
   source:
