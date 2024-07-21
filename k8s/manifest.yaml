@@ -19,7 +19,7 @@ metadata:
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: argo-python
+  name: argopython
   namespace: argopython
 spec:
   description: Projeto para aplicações de teste no Argo CD
