@@ -20,13 +20,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: argopython
-  namespace: argocd
+  namespace: argopython
 spec:
   description: Projeto para aplicações de teste no Argo CD
   sourceRepos:
     - 'https://github.com/hroliveira/Argo-Python'
   destinations:
-    - namespace: argopython
+    - namespace: argo_python
       server: 'https://kubernetes.default.svc'
   clusterResourceWhitelist:
     - group: '*'
