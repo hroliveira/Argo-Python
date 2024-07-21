@@ -19,7 +19,7 @@ metadata:
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: argopython
+  name: argo-python
   namespace: argopython
 spec:
   description: Projeto para aplicações de teste no Argo CD
@@ -110,7 +110,7 @@ metadata:
   name: argo-python-app
   namespace: argocd
 spec:
-  project: argopython
+  project: argo-python
   source:
     repoURL: 'https://github.com/hroliveira/Argo-Python'
     targetRevision: HEAD
