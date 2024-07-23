@@ -1,0 +1,48 @@
+replicaCount: 2
+
+image:
+  repository: oliveirahr/argo-python:latest
+  tag: dev
+  pullPolicy: Always
+
+service:
+  type: NodePort
+  port: 5000
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+  hosts:
+    - host: argo-python.rancher.hro.dev.br
+      paths: []
+  tls: []
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+persistentVolume:
+  size: 2Gi
+  accessMode: ReadWriteMany
+  storageClass: fast
+  path: /mnt/data
+
+persistentVolumeClaim:
+  size: 2Gi
+  accessMode: ReadWriteMany
+  storageClass: fast
+
+secretStore:
+  name: lab-secret-store
+
+secret:
+  username: lab-user
+  password: lab-pass
+  fileShare: lab-file-share-secret

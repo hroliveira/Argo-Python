@@ -3,8 +3,9 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY app/ .
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 
-RUN pip install flask
+COPY . .
 
-CMD ["python", "app.py"]
+CMD ["python", "app/main.py"]
