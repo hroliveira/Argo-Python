@@ -1,0 +1,9 @@
+# Este arquivo define quais arquivos e diretórios devem ser ignorados pelo Helm ao criar pacotes.
+# Ignorar arquivos e diretórios desnecessários
+
+*.bak
+*.tmp
+*.swp
+.idea/
+.vscode/
+.git/

@@ -1,0 +1,48 @@
+replicaCount: 1
+
+image:
+  repository: oliveirahr/argo-python:latest
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: argo-python.rancher.hro.dev.br
+      paths: []
+  tls: []
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+persistentVolume:
+  size: 1Gi
+  accessMode: ReadWriteOnce
+  storageClass: standard
+  path: /mnt/data
+
+persistentVolumeClaim:
+  size: 1Gi
+  accessMode: ReadWriteOnce
+  storageClass: standard
+
+secretStore:
+  name: secret-store
+
+secret:
+  username: user
+  password: pass
+  fileShare: file-share-secret
