@@ -19,7 +19,7 @@ metadata:
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: argopython
+  name: argop-ython
   namespace: argocd  # O namespace do ArgoCD onde o AppProject será criado
 spec:
   description: Projeto para aplicações de teste no Argo CD
