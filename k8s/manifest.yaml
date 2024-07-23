@@ -120,7 +120,7 @@ spec:
     path: k8s
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: argopython
+    namespace: argop-ython
   syncPolicy:
     automated:
       prune: true
